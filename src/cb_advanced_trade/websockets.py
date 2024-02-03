@@ -102,8 +102,9 @@ class MarketData(object):
     def on_message(self, websocket: WebSocketApp, message: str):
         """Action taken for each message received."""
         message = loads(message)
+        message_type = message.get("type", "").lower()
 
-        if message.get("type").lower() == "error":
+        if message_type == "error":
             self._log.error(f"{message.get('message')}! {message.get('reason')}!")
             self.close()
 
